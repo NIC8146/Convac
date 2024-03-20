@@ -16,7 +16,7 @@ press_enter=False
 
 #change ip to your system ip andd port on which you want to run different port  
 HEADER = 64
-SERVER = "192.168.xx.xx" #socket ip
+SERVER = "192.168.244.161" #socket ip
 PORT = 5050 #server listen port
 # change WEBHOOK_PORT use webhook with different port
 WEBHOOK_PORT=8080 #Webhook port
