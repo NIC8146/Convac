@@ -1,12 +1,22 @@
 import socket
 from pynput.keyboard import Key, Controller
 import os
-from winotify import Notification
+from sys import platform
+
+if platform == "linux" or platform == "linux2":
+    # if os is linux
+    linux = True
+    win = False
+elif platform == "win32":
+    # in os is windows
+    linux = False
+    win = True
+    from winotify import Notification
 
 keyboard = Controller()
 
 HEADER = 64
-SERVER = "192.168.1.3" #server ip address
+SERVER = "192.168.1.10" #server ip address
 PORT = 5050 #port same as server listen port
 FORMAT = 'utf-8'
 ADDR = (SERVER, PORT)
@@ -32,19 +42,22 @@ try:
         
         if command:
 
-
-
-
-
             if command=="sign_out":
                 client.send(f"\033[1;34m{socket.gethostname()}\033[1;35m is signing out\033[0m".encode(FORMAT))
                 client.close()
-                os.system("rundll32.exe user32.dll,LockWorkStation")
+                if win:
+                    os.system("rundll32.exe user32.dll,LockWorkStation")
+                elif linux:
+                    # not working
+                    pass
 
             if command=="shutdown":
                 client.send(f"\033[1;34m{socket.gethostname()}\033[1;35m is Shutting down\033[0m".encode(FORMAT))
                 client.close()
-                os.system("shutdown /s /t 0")
+                if win:
+                    os.system("shutdown /s /t 0")
+                elif linux:
+                    os.system("poweroff")
 
             if command=="press_space":
                 keyboard.press(Key.space)
@@ -64,6 +77,10 @@ try:
                 client.send(f"\033[1;34m[{socket.gethostname()}]\033[1;35m ENTER key pressed\033[0m".encode(FORMAT))
 
 except Exception as e:
-    if "No connection could be made because the target machine actively refused it" in str(e):
-        notif = Notification(app_id="Convac",title="Connection Error",msg="server is not working or under maintenence")
-        notif.show()
+    if win:
+        if "No connection could be made because the target machine actively refused it" in str(e):
+            notif = Notification(app_id="Convac",title="Connection Error",msg="server is not working or under maintenence")
+            notif.show()
+    elif linux:
+        # not working
+        pass

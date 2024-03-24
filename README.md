@@ -1,6 +1,10 @@
 
 # Convac
 
+**Now only one client file for both linux and windows**
+
+**linux files does not support sign out and notifications**
+
 Convac is python webhook and socket based tool to execute important and minimum tasks in remote system.
 
 Convac_client.py is only for windows system not tested for linux.
