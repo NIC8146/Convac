@@ -43,7 +43,7 @@ pip install -r requirments.txt
 Clone the project
 
 ```bash
-  git clone https://github.com/Nishant8146/Convac.git
+  git clone https://github.com/NIC8146/Convac.git
 ```
 
 Go to the project directory
